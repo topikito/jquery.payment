@@ -143,6 +143,10 @@ formatCardNumber = (e) ->
     e.preventDefault()
     $target.val(value + digit + ' ')
 
+  # Android doesn't put the cursor at the end
+  # of the input when you change its value
+  $target.payment('setCursor')
+
 formatBackCardNumber = (e) ->
   $target = $(e.currentTarget)
   value   = $target.val()
@@ -176,6 +180,8 @@ formatExpiry = (e) ->
     e.preventDefault()
     $target.val("#{val} / ")
 
+  $target.payment('setCursor')
+
 formatForwardExpiry = (e) ->
   digit = String.fromCharCode(e.which)
   return unless /^\d+$/.test(digit)
@@ -195,6 +201,7 @@ formatForwardSlash = (e) ->
 
   if /^\d$/.test(val) and val isnt '0'
     $target.val("0#{val} / ")
+    $target.payment('setCursor')
 
 formatBackExpiry = (e) ->
   # If shift+backspace is pressed
@@ -214,7 +221,8 @@ formatBackExpiry = (e) ->
   if /\s\/\s?$/.test(value)
     e.preventDefault()
     $target.val(value.replace(/\s\/\s?$/, ''))
-
+    $target.payment('setCursor')
+    
 #  Restrictions
 
 restrictNumeric = (e) ->
@@ -323,6 +331,10 @@ $.payment.fn.restrictNumeric = ->
 
 $.payment.fn.cardExpiryVal = ->
   $.payment.cardExpiryVal($(this).val())
+
+$.payment.fn.setCursor = (pos) ->
+  pos ?= $(this).val().length
+  this.setSelectionRange?(pos, pos)
 
 $.payment.cardExpiryVal = (value) ->
   value = value.replace(/\s/g, '')
