@@ -334,7 +334,11 @@ $.payment.fn.cardExpiryVal = ->
 
 $.payment.fn.setCursor = (pos) ->
   pos ?= $(this).val().length
-  this.setSelectionRange?(pos, pos)
+
+  # We have to use a setTimout because of this bug:
+  # http://code.google.com/p/android/issues/detail?id=15245
+  setTimout =>
+    this.setSelectionRange?(pos, pos)
 
 $.payment.cardExpiryVal = (value) ->
   value = value.replace(/\s/g, '')
