@@ -176,6 +176,8 @@ formatBackCardNumber = (e) ->
 
 # Format Expiry
 
+expiryRegex = /^(\d{1,2})?[\s/]*(\d{1,4})?/
+
 formatExpiry = (e) ->
   # Only format if input is a number
   digit = String.fromCharCode(e.which)
@@ -184,33 +186,17 @@ formatExpiry = (e) ->
   $target = $(e.currentTarget)
   val     = $target.val() + digit
 
-  if /^\d$/.test(val) and val not in ['0', '1']
-    e.preventDefault()
-    $target.val("0#{val} / ")
+  matches = expiryRegex.exec(val)
+  [_, month, year] = matches
 
-  else if /^\d\d$/.test(val)
-    e.preventDefault()
-    $target.val("#{val} / ")
+  e.preventDefault()
 
-formatForwardExpiry = (e) ->
-  digit = String.fromCharCode(e.which)
-  return unless /^\d+$/.test(digit)
-
-  $target = $(e.currentTarget)
-  val     = $target.val()
-
-  if /^\d\d$/.test(val)
-    $target.val("#{val} / ")
-
-formatForwardSlash = (e) ->
-  slash = String.fromCharCode(e.which)
-  return unless slash is '/'
-
-  $target = $(e.currentTarget)
-  val     = $target.val()
-
-  if /^\d$/.test(val) and val isnt '0'
-    $target.val("0#{val} / ")
+  if month and year
+    $target.val("#{month} / #{year}")
+  else if month.length is 2
+    $target.val("#{month} / ")    
+  else
+    $target.val("#{month}")
 
 formatBackExpiry = (e) ->
   # If shift+backspace is pressed
@@ -316,8 +302,6 @@ $.payment.fn.formatCardExpiry = ->
   @payment('restrictNumeric')
   @on('keypress', restrictExpiry)
   @on('keypress', formatExpiry)
-  @on('keypress', formatForwardSlash)
-  @on('keypress', formatForwardExpiry)
   @on('keydown',  formatBackExpiry)
   this
 
