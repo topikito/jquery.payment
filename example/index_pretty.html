@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="../lib/jquery.payment.js"></script>
+	<script src="./js/pretty.js"></script>
+
+	<style type="text/css" media="screen">
+		input.invalid {
+			border: 2px solid red;
+		}
+
+		.validation.failed:after {
+			color: red;
+			content: 'Validation failed';
+		}
+
+		.validation.passed:after {
+			color: green;
+			content: 'Validation passed';
+		}
+
+		img.desaturate
+		{
+			-webkit-filter: grayscale(100%);
+			-moz-filter: grayscale(100%);
+			filter: grayscale(100%);
+		}
+	</style>
+
+	<script>
+		$(document).ready(function(){
+			prettyCards.ignition();
+		});
+	</script>
+
+</head>
+<body>
+
+<h1>Pretty form</h1>
+
+<form novalidate autocomplete="on">
+	<p>
+	<div class="card-icon-wrapper">
+		<img class="desaturate bank" src="./img/credit_cards/48/generic_bank_48.png">
+		<img class="desaturate mastercard" src="./img/credit_cards/48/mastercard_48.png">
+		<img class="desaturate visa" src="./img/credit_cards/48/visa_48.png">
+		<img class="desaturate amex" src="./img/credit_cards/48/amex_48.png">
+		<img class="desaturate discover" src="./img/credit_cards/48/discover_48.png">
+	</div>
+	<label for="number">Card number formatting</label>
+	<input id="number" type="text" class="cc-number"
+	       data-type-card-number
+	       pattern="\d*" x-autocompletetype="cc-number" placeholder="Card number" required>
+	</p>
+
+	<p>
+		<label for="expiry">Expiry formatting</label>
+		<input id="expiry" type="text" class="cc-exp"
+		       data-type-card-expiry
+		       pattern="\d*" x-autocompletetype="cc-exp" placeholder="Expires MM/YY" required maxlength="9">
+	</p>
+
+	<p>
+		<label for="ccv">CCV/CVC formatting</label>
+		<input id="ccv" type="text" class="cc-cvc"
+		       data-type-card-cvc
+		       pattern="\d*" x-autocompletetype="cc-csc" placeholder="Security code" required  autocomplete="off">
+	</p>
+
+	<button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
