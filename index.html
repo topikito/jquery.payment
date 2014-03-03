@@ -1,0 +1,250 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Jquery.payment by topikito</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Jquery.payment</h1>
+        <p>A general purpose library for building credit card forms, validating inputs and formatting numbers.</p>
+        <p class="view"><a href="https://github.com/topikito/jquery.payment">View the Project on GitHub <small>topikito/jquery.payment</small></a></p>
+        <ul>
+          <li><a href="https://github.com/topikito/jquery.payment/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/topikito/jquery.payment/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/topikito/jquery.payment">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="jquerypayment" class="anchor" href="#jquerypayment"><span class="octicon octicon-link"></span></a>jQuery.payment</h1>
+
+<p>A general purpose library for building credit card forms, validating inputs and formatting numbers.</p>
+
+<p>For example, you can make a input act like a credit card field (with number formatting, and length restriction):</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input.cc-num'</span><span class="p">).</span><span class="nx">payment</span><span class="p">(</span><span class="s1">'formatCardNumber'</span><span class="p">);</span>
+</pre></div>
+
+<p>Then, when say the payment form is submitted, you can validate the card number on the client-side like so:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">valid</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">validateCardNumber</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">'input.cc-num'</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+
+<span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">valid</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s1">'Your card is not valid!'</span><span class="p">);</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>You can find a full <a href="http://stripe.github.com/jquery.payment/example">demo here</a>.</p>
+
+<p>Supported card types are:</p>
+
+<ul>
+<li>Visa</li>
+<li>MasterCard</li>
+<li>American Express</li>
+<li>Discover</li>
+<li>JCB</li>
+<li>Diners Club</li>
+<li>Maestro</li>
+<li>Laster</li>
+<li>UnionPay</li>
+</ul><h2>
+<a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h2>
+
+<h3>
+<a name="fnpaymentformatcardnumber" class="anchor" href="#fnpaymentformatcardnumber"><span class="octicon octicon-link"></span></a>$.fn.payment('formatCardNumber')</h3>
+
+<p>Formats card numbers:</p>
+
+<ul>
+<li>Including a space between every 4 digits</li>
+<li>Restricts input to numbers</li>
+<li>Limits to 16 numbers</li>
+<li>American Express formatting support</li>
+<li>Adds a class of the card type (i.e. 'visa') to the input</li>
+</ul><p>Example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input.cc-num'</span><span class="p">).</span><span class="nx">payment</span><span class="p">(</span><span class="s1">'formatCardNumber'</span><span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="fnpaymentformatcardexpiry" class="anchor" href="#fnpaymentformatcardexpiry"><span class="octicon octicon-link"></span></a>$.fn.payment('formatCardExpiry')</h3>
+
+<p>Formats card expiry:</p>
+
+<ul>
+<li>Includes a <code>/</code> between the month and year</li>
+<li>Restricts input to numbers</li>
+<li>Restricts length</li>
+</ul><p>Example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input.cc-exp'</span><span class="p">).</span><span class="nx">payment</span><span class="p">(</span><span class="s1">'formatCardExpiry'</span><span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="fnpaymentformatcardcvc" class="anchor" href="#fnpaymentformatcardcvc"><span class="octicon octicon-link"></span></a>$.fn.payment('formatCardCVC')</h3>
+
+<p>Formats card CVC:</p>
+
+<ul>
+<li>Restricts length to 4 numbers</li>
+<li>Restricts input to numbers</li>
+</ul><p>Example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input.cc-cvc'</span><span class="p">).</span><span class="nx">payment</span><span class="p">(</span><span class="s1">'formatCardCVC'</span><span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="fnpaymentrestrictnumeric" class="anchor" href="#fnpaymentrestrictnumeric"><span class="octicon octicon-link"></span></a>$.fn.payment('restrictNumeric')</h3>
+
+<p>General numeric input restriction.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'data-numeric'</span><span class="p">).</span><span class="nx">payment</span><span class="p">(</span><span class="s1">'restrictNumeric'</span><span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="paymentvalidatecardnumbernumber" class="anchor" href="#paymentvalidatecardnumbernumber"><span class="octicon octicon-link"></span></a>$.payment.validateCardNumber(number)</h3>
+
+<p>Validates a card number:</p>
+
+<ul>
+<li>Validates numbers</li>
+<li>Validates Luhn algorithm</li>
+<li>Validates length</li>
+</ul><p>Example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">validateCardNumber</span><span class="p">(</span><span class="s1">'4242 4242 4242 4242'</span><span class="p">);</span> <span class="c1">//=&gt; true</span>
+</pre></div>
+
+<h3>
+<a name="paymentvalidatecardexpirymonth-year" class="anchor" href="#paymentvalidatecardexpirymonth-year"><span class="octicon octicon-link"></span></a>$.payment.validateCardExpiry(month, year)</h3>
+
+<p>Validates a card expiry:</p>
+
+<ul>
+<li>Validates numbers</li>
+<li>Validates in the future</li>
+<li>Supports year shorthand</li>
+</ul><p>Example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">validateCardExpiry</span><span class="p">(</span><span class="s1">'05'</span><span class="p">,</span> <span class="s1">'20'</span><span class="p">);</span> <span class="c1">//=&gt; true</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">validateCardExpiry</span><span class="p">(</span><span class="s1">'05'</span><span class="p">,</span> <span class="s1">'2015'</span><span class="p">);</span> <span class="c1">//=&gt; true</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">validateCardExpiry</span><span class="p">(</span><span class="s1">'05'</span><span class="p">,</span> <span class="s1">'05'</span><span class="p">);</span> <span class="c1">//=&gt; false</span>
+</pre></div>
+
+<h3>
+<a name="paymentvalidatecardcvccvc-type" class="anchor" href="#paymentvalidatecardcvccvc-type"><span class="octicon octicon-link"></span></a>$.payment.validateCardCVC(cvc, type)</h3>
+
+<p>Validates a card CVC:</p>
+
+<ul>
+<li>Validates number</li>
+<li>Validates length to 4</li>
+</ul><p>Example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">validateCardCVC</span><span class="p">(</span><span class="s1">'123'</span><span class="p">);</span> <span class="c1">//=&gt; true</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">validateCardCVC</span><span class="p">(</span><span class="s1">'123'</span><span class="p">,</span> <span class="s1">'amex'</span><span class="p">);</span> <span class="c1">//=&gt; true</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">validateCardCVC</span><span class="p">(</span><span class="s1">'1234'</span><span class="p">,</span> <span class="s1">'amex'</span><span class="p">);</span> <span class="c1">//=&gt; true</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">validateCardCVC</span><span class="p">(</span><span class="s1">'12344'</span><span class="p">);</span> <span class="c1">//=&gt; false</span>
+</pre></div>
+
+<h3>
+<a name="paymentcardtypenumber" class="anchor" href="#paymentcardtypenumber"><span class="octicon octicon-link"></span></a>$.payment.cardType(number)</h3>
+
+<p>Returns a card type. Either:</p>
+
+<ul>
+<li><code>visa</code></li>
+<li><code>mastercard</code></li>
+<li><code>discover</code></li>
+<li><code>amex</code></li>
+<li><code>dinersclub</code></li>
+<li><code>maestro</code></li>
+<li><code>laser</code></li>
+<li><code>unionpay</code></li>
+</ul><p>The function will return <code>null</code> if the card type can't be determined.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">cardType</span><span class="p">(</span><span class="s1">'4242 4242 4242 4242'</span><span class="p">);</span> <span class="c1">//=&gt; 'visa'</span>
+</pre></div>
+
+<h3>
+<a name="paymentcardexpiryvalstring-and-fnpaymentcardexpiryval" class="anchor" href="#paymentcardexpiryvalstring-and-fnpaymentcardexpiryval"><span class="octicon octicon-link"></span></a>$.payment.cardExpiryVal(string) and $.fn.payment('cardExpiryVal')</h3>
+
+<p>Parses a credit card expiry in the form of MM/YYYY, returning an object containing the <code>month</code> and <code>year</code>. Shorthand years, such as <code>13</code> are also supported (and converted into the longhand, e.g. <code>2013</code>).</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">cardExpiryVal</span><span class="p">(</span><span class="s1">'03 / 2025'</span><span class="p">);</span> <span class="c1">//=&gt; {month: 3: year: 2025}</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">payment</span><span class="p">.</span><span class="nx">cardExpiryVal</span><span class="p">(</span><span class="s1">'05 / 04'</span><span class="p">);</span> <span class="c1">//=&gt; {month: 5, year: 2004}</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'input.cc-exp'</span><span class="p">).</span><span class="nx">payment</span><span class="p">(</span><span class="s1">'cardExpiryVal'</span><span class="p">)</span> <span class="c1">//=&gt; {month: 4, year: 2020}</span>
+</pre></div>
+
+<p>This function doesn't do any validation of the month or year, use <code>$.payment.validateCardExpiry(month, year)</code> for that.</p>
+
+<h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>Look in <code>./example/index.html</code></p>
+
+<h2>
+<a name="building" class="anchor" href="#building"><span class="octicon octicon-link"></span></a>Building</h2>
+
+<p>Run <code>cake build</code></p>
+
+<h2>
+<a name="run-tests" class="anchor" href="#run-tests"><span class="octicon octicon-link"></span></a>Run tests</h2>
+
+<p>Run <code>mocha --compilers coffee:coffee-script</code></p>
+
+<h2>
+<a name="autocomplete-recommendations" class="anchor" href="#autocomplete-recommendations"><span class="octicon octicon-link"></span></a>Autocomplete recommendations</h2>
+
+<p>We recommend you turn autocomplete on for credit card forms, except for the CVC field. You can do this by setting the <code>autocomplete</code> attribute:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;form</span> <span class="na">autocomplete=</span><span class="s">"on"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"cc-number"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"cc-cvc"</span> <span class="na">autocomplete=</span><span class="s">"off"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+<p>You should also mark up your fields using the <a href="http://wiki.whatwg.org/wiki/Autocomplete_Types">Autocomplete Types spec</a>. These are respected by a number of browsers, including Chrome.</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">class=</span><span class="s">"cc-number"</span> <span class="na">pattern=</span><span class="s">"\d*"</span> <span class="na">autocompletetype=</span><span class="s">"cc-number"</span> <span class="na">placeholder=</span><span class="s">"Card number"</span> <span class="na">required</span><span class="nt">&gt;</span>
+</pre></div>
+
+<p>Set <code>autocompletetype</code> to <code>cc-number</code> for credit card numbers, <code>cc-exp</code> for credit card expiry and <code>cc-csc</code> for the CVC (security code).</p>
+
+<h2>
+<a name="mobile-recommendations" class="anchor" href="#mobile-recommendations"><span class="octicon octicon-link"></span></a>Mobile recommendations</h2>
+
+<p>We recommend you set the <code>pattern</code> attribute which will cause the numeric keyboard to be displayed on mobiles:</p>
+
+<div class="highlight highlight-html"><pre><span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"cc-number"</span> <span class="na">pattern=</span><span class="s">"\d*"</span><span class="nt">&gt;</span>
+</pre></div>
+
+<p>You may have to turn off HTML5 validation (using the <code>novalidate</code> form attribute) when using this <code>pattern</code>, as it won't match space formatting.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/topikito">topikito</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
